@@ -107,4 +107,17 @@ module.exports = (test) => {
       },
     ],
   });
+
+  test(`(2);`, {
+    type: "Program",
+    body: [
+      {
+        type: "ExpressionStatement",
+        expression: {
+          type: "NumericLiteral",
+          value: 2,
+        },
+      },
+    ],
+  });
 };
