@@ -9,7 +9,11 @@ const { Parser } = require("../src/Parser");
 //   require("./math.test"),
 // ];
 const parser = new Parser();
-const program = `42`;
+const program = `
+hello;
+
+43;
+`;
 const ast = parser.parse(program);
 console.log(JSON.stringify(ast, null, 2));
 
