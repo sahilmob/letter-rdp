@@ -6,7 +6,7 @@ const tests = [
   require("./statement-list.test"),
   require("./block.test"),
   require("./emptyStatement.test"),
-  //   require("./math.test"),
+    require("./math.test"),
 ];
 const parser = new Parser();
 
