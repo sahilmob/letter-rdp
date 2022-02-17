@@ -24,4 +24,17 @@ module.exports = (test) => {
       },
     ],
   });
+  
+  test(`'hello';`, {
+    type: "Program",
+    body: [
+      {
+        type: "ExpressionStatement",
+        expression: {
+          type: "StringLiteral",
+          value: "hello",
+        },
+      },
+    ],
+  });
 };
