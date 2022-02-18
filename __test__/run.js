@@ -6,32 +6,21 @@ const tests = [
   require("./statement-list.test"),
   require("./block.test"),
   require("./emptyStatement.test"),
-    require("./math.test"),
+  require("./math.test"),
+  require("./assignment.test"),
 ];
 const parser = new Parser();
 
 function exec() {
   const program = `
-// A comment
-
-/**
- *
- *
- * Documentation comment
- *
- */
-// String
-'hello';
-
-// Number
-42;
+    x += 1;
 `;
   const ast = parser.parse(program);
 
   console.log(JSON.stringify(ast, null, 2));
 }
 
-// exec();
+exec();
 
 function test(program, expected) {
   const ast = parser.parse(program);
