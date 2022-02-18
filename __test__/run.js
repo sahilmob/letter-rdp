@@ -8,12 +8,19 @@ const tests = [
   require("./emptyStatement.test"),
   require("./math.test"),
   require("./assignment.test"),
+  require("./variable.test"),
 ];
 const parser = new Parser();
 
 function exec() {
   const program = `
-    x += 1;
+    let y;
+    let a, b;
+    let c, d = 10;
+    let x = 1;
+    r = 10;
+    let foo = bar = 10;
+    let x = 'a';
 `;
   const ast = parser.parse(program);
 
