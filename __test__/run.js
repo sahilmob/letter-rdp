@@ -11,18 +11,13 @@ const tests = [
   require("./variable.test"),
   require("./if.test"),
   require("./relational.test"),
+  require("./logical.test"),
 ];
 const parser = new Parser();
 
 function exec() {
   const program = `
-    let x = 42;
-
-    if (x > 10){
-        x = 0;
-    }else{
-        x += 1;
-    }
+    x + 5 || y < 10;
 
 `;
   const ast = parser.parse(program);
