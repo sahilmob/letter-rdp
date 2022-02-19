@@ -9,6 +9,8 @@ const Spec = [
   [/^\)/, ")"],
   [/^,/, ","],
   [/^\blet\b/, "let"],
+  [/^\bif\b/, "if"],
+  [/^\belse\b/, "else"],
   [/^\d+/, "NUMBER"],
   [/^\w+/, "IDENTIFIER"],
   [/^=/, "SIMPLE_ASSIGN"],
@@ -17,6 +19,7 @@ const Spec = [
   [/^'[^']*'/, "STRING"],
   [/^[+\-]/, "ADDITIVE_OPERATOR"],
   [/^[*\/]/, "MULTIPLICATIVE_OPERATOR"],
+  [/^[><]=?/, "RELATIONAL_OPERATOR"],
 ];
 class Tokenizer {
   init(string) {

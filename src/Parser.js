@@ -41,6 +41,7 @@ class Parser {
   // | BlockStatement
   // | EmptyStatement
   // | VariableStatement
+  // | IfStatement
   // ;
   Statement() {
     switch (this._lookahead.type) {
@@ -50,9 +51,36 @@ class Parser {
         return this.BlockStatement();
       case "let":
         return this.VariableStatement();
+      case "if":
+        return this.IfStatement();
       default:
         return this.ExpressionStatement();
     }
+  }
+
+  // IfStatement
+  // : "if" "(" Expression ")" Statement
+  // : "if" "(" Expression ")" Statement "else" Statement
+  // ;
+  IfStatement() {
+    this._eat("if");
+    this._eat("(");
+    const test = this.Expression();
+    this._eat(")");
+    const consequent = this.Statement();
+    let alternate = null;
+
+    if (this._lookahead !== null && this._lookahead.type === "else") {
+      this._eat("else");
+      alternate = this.Statement();
+    }
+
+    return {
+      type: "IfStatement",
+      test,
+      consequent,
+      alternate,
+    };
   }
 
   // VariableStatement
@@ -156,9 +184,10 @@ class Parser {
   // AssignmentExpression
   // : AdditiveExpression
   // | LeftHandSideExpression AssignmentOperator AssignmentExpression
+  // |
   // ;
   AssignmentExpression() {
-    const left = this.AdditiveExpression();
+    const left = this.RelationalExpression();
     if (!this._isAssignmentOperator(this._lookahead.type)) {
       return left;
     }
@@ -212,6 +241,10 @@ class Parser {
     }
 
     return this._eat("COMPLEX_ASSIGN");
+  }
+
+  RelationalExpression() {
+    return this._BinaryExpression("AdditiveExpression", "RELATIONAL_OPERATOR");
   }
 
   // AdditiveExpression
