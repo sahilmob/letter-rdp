@@ -13,13 +13,17 @@ const tests = [
   require("./relational.test"),
   require("./logical.test"),
   require("./unary.test"),
+  require("./while.test"),
+  require("./doWhile.test"),
+  require("./for.test"),
 ];
 const parser = new Parser();
 
 function exec() {
   const program = `
-    --x;
-
+    for (let i=0, j = 0; i < 10; i += 1){
+        x += 1;
+    }
 `;
   const ast = parser.parse(program);
 
