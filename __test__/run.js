@@ -12,12 +12,13 @@ const tests = [
   require("./if.test"),
   require("./relational.test"),
   require("./logical.test"),
+  require("./unary.test"),
 ];
 const parser = new Parser();
 
 function exec() {
   const program = `
-    x + 5 || y < 10;
+    --x;
 
 `;
   const ast = parser.parse(program);
