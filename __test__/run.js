@@ -16,14 +16,17 @@ const tests = [
   require("./while.test"),
   require("./doWhile.test"),
   require("./for.test"),
+  require("./functionDeclaration.test"),
 ];
 const parser = new Parser();
 
 function exec() {
   const program = `
-    for (let i=0, j = 0; i < 10; i += 1){
-        x += 1;
+    def square(x) {
+        return x * x;
     }
+
+    // square(2);
 `;
   const ast = parser.parse(program);
 
