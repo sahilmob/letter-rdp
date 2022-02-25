@@ -18,6 +18,7 @@ const tests = [
   require("./for.test"),
   require("./functionDeclaration.test"),
   require("./member.test"),
+  require("./functionCall.test"),
 ];
 const parser = new Parser();
 
@@ -28,9 +29,12 @@ function exec() {
 
     while (i < s.length){
         s[i];
-        // console.log(i, s[i]);
+        console.log(i, s[i]);
         i += 1;
     }
+  
+    square(2);
+    getCallback()();
 
 `;
   const ast = parser.parse(program);
