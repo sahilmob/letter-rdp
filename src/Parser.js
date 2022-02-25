@@ -345,13 +345,6 @@ class Parser {
     };
   }
 
-  // LeftHandSideExpression
-  //   : Identifier
-  //   ;
-  LeftHandSideExpression() {
-    return this.Identifier();
-  }
-
   // Identifier
   //   : IDENTIFIER
   //   ;
@@ -365,7 +358,7 @@ class Parser {
   }
 
   _checkValidAssignmentTarget(node) {
-    if (node.type === "Identifier") {
+    if (node.type === "Identifier" || node.type === "MemberExpression") {
       return node;
     }
 
@@ -493,9 +486,46 @@ class Parser {
   }
 
   // LeftHandSideExpression
-  //   : Identifier
+  //   : MemberExpression
   LeftHandSideExpression() {
-    return this.PrimaryExpression();
+    return this.MemberExpression();
+  }
+
+  // MemberExpression
+  //   : PrimaryExpression
+  //   | MemberExpression "." Identifier
+  //   | MemberExpression "[" Expression "]"
+  //   ;
+  MemberExpression() {
+    let object = this.PrimaryExpression();
+
+    while (this._lookahead.type === "." || this._lookahead.type === "[") {
+      if (this._lookahead.type === ".") {
+        this._eat(".");
+        const property = this.Identifier();
+        object = {
+          type: "MemberExpression",
+          computed: false,
+          object,
+          property,
+        };
+      }
+
+      if (this._lookahead.type === "[") {
+        this._eat("[");
+        const property = this.Expression();
+        this._eat("]");
+
+        object = {
+          type: "MemberExpression",
+          computed: true,
+          object,
+          property,
+        };
+      }
+    }
+
+    return object;
   }
 
   // PrimaryExpression
